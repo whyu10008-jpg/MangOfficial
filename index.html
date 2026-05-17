@@ -1,0 +1,783 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>AI STORE MODERN</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:'Poppins',sans-serif;
+}
+
+html{
+  scroll-behavior:smooth;
+}
+
+body{
+  background:#0b1020;
+  color:white;
+  overflow-x:hidden;
+}
+
+/* BACKGROUND */
+
+body::before{
+  content:"";
+  position:fixed;
+  inset:0;
+  background:
+    radial-gradient(circle at top left,#4f46e5 0%,transparent 35%),
+    radial-gradient(circle at bottom right,#06b6d4 0%,transparent 35%),
+    #0b1020;
+  z-index:-2;
+}
+
+.blur{
+  position:fixed;
+  width:300px;
+  height:300px;
+  border-radius:50%;
+  background:#4f46e5;
+  filter:blur(140px);
+  opacity:0.4;
+  z-index:-1;
+}
+
+.blur2{
+  right:0;
+  bottom:0;
+  background:#06b6d4;
+}
+
+/* HEADER */
+
+header{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:20px 8%;
+  backdrop-filter:blur(12px);
+  background:rgba(255,255,255,0.05);
+  border-bottom:1px solid rgba(255,255,255,0.08);
+  position:sticky;
+  top:0;
+  z-index:999;
+}
+
+.logo{
+  font-size:30px;
+  font-weight:700;
+  background:linear-gradient(90deg,#60a5fa,#22d3ee);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+}
+
+nav a{
+  text-decoration:none;
+  color:white;
+  margin-left:20px;
+  transition:0.3s;
+  font-weight:500;
+}
+
+nav a:hover{
+  color:#22d3ee;
+}
+
+/* HERO */
+
+.hero{
+  min-height:100vh;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:70px 8%;
+  gap:50px;
+  flex-wrap:wrap;
+}
+
+.hero-text{
+  flex:1;
+  min-width:300px;
+}
+
+.tag{
+  display:inline-block;
+  padding:10px 18px;
+  border-radius:999px;
+  background:rgba(255,255,255,0.08);
+  border:1px solid rgba(255,255,255,0.1);
+  margin-bottom:20px;
+  color:#67e8f9;
+  font-size:14px;
+}
+
+.hero h1{
+  font-size:65px;
+  line-height:1.1;
+  margin-bottom:20px;
+}
+
+.hero h1 span{
+  background:linear-gradient(90deg,#60a5fa,#22d3ee);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+}
+
+.hero p{
+  color:#cbd5e1;
+  line-height:1.8;
+  margin-bottom:30px;
+  max-width:600px;
+}
+
+.buttons{
+  display:flex;
+  gap:15px;
+  flex-wrap:wrap;
+}
+
+.btn{
+  padding:14px 28px;
+  border:none;
+  border-radius:14px;
+  font-size:15px;
+  font-weight:600;
+  cursor:pointer;
+  transition:0.3s;
+}
+
+.btn-primary{
+  background:linear-gradient(90deg,#4f46e5,#06b6d4);
+  color:white;
+  box-shadow:0 10px 30px rgba(79,70,229,0.4);
+}
+
+.btn-primary:hover{
+  transform:translateY(-4px);
+}
+
+.btn-secondary{
+  background:rgba(255,255,255,0.08);
+  border:1px solid rgba(255,255,255,0.1);
+  color:white;
+}
+
+/* AI BOX */
+
+.hero-card{
+  flex:1;
+  min-width:300px;
+  display:flex;
+  justify-content:center;
+}
+
+.ai-box{
+  width:100%;
+  max-width:430px;
+  padding:30px;
+  border-radius:30px;
+  background:rgba(255,255,255,0.08);
+  border:1px solid rgba(255,255,255,0.08);
+  backdrop-filter:blur(14px);
+  box-shadow:0 20px 60px rgba(0,0,0,0.35);
+}
+
+.ai-top{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:30px;
+}
+
+.ai-status{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  color:#86efac;
+  font-size:14px;
+}
+
+.dot{
+  width:10px;
+  height:10px;
+  background:#22c55e;
+  border-radius:50%;
+  box-shadow:0 0 12px #22c55e;
+}
+
+.ai-chat{
+  display:flex;
+  flex-direction:column;
+  gap:15px;
+}
+
+.chat{
+  padding:14px;
+  border-radius:16px;
+  font-size:14px;
+  line-height:1.6;
+}
+
+.user{
+  background:rgba(255,255,255,0.07);
+  align-self:flex-end;
+}
+
+.ai{
+  background:linear-gradient(90deg,#4338ca,#0891b2);
+}
+
+/* SECTION */
+
+.section{
+  padding:80px 8%;
+}
+
+.title{
+  text-align:center;
+  margin-bottom:50px;
+}
+
+.title h2{
+  font-size:42px;
+  margin-bottom:10px;
+}
+
+.title p{
+  color:#cbd5e1;
+}
+
+/* FITUR */
+
+.cards{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+  gap:25px;
+}
+
+.card{
+  padding:30px;
+  border-radius:24px;
+  background:rgba(255,255,255,0.06);
+  border:1px solid rgba(255,255,255,0.08);
+  transition:0.4s;
+}
+
+.card:hover{
+  transform:translateY(-8px);
+  box-shadow:0 15px 40px rgba(0,0,0,0.3);
+}
+
+.icon{
+  width:60px;
+  height:60px;
+  border-radius:18px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:28px;
+  background:linear-gradient(135deg,#4f46e5,#06b6d4);
+}
+
+.card h3{
+  margin:18px 0 10px;
+}
+
+.card p{
+  color:#cbd5e1;
+  line-height:1.7;
+  font-size:14px;
+}
+
+/* LIST MENU JUALAN */
+
+.button-list{
+  display:flex;
+  flex-direction:column;
+  gap:18px;
+  max-width:700px;
+  margin:auto;
+}
+
+.menu-btn{
+  display:flex;
+  align-items:center;
+  gap:18px;
+  padding:20px;
+  border-radius:20px;
+  background:rgba(255,255,255,0.06);
+  border:1px solid rgba(255,255,255,0.08);
+  text-decoration:none;
+  color:white;
+  transition:0.3s;
+}
+
+.menu-btn:hover{
+  transform:translateY(-5px);
+  border-color:#22d3ee;
+  background:rgba(255,255,255,0.08);
+}
+
+.btn-icon{
+  width:60px;
+  height:60px;
+  border-radius:18px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:28px;
+}
+
+.btn-1 .btn-icon{
+  background:linear-gradient(135deg,#f59e0b,#f97316);
+}
+
+.btn-2 .btn-icon{
+  background:linear-gradient(135deg,#3b82f6,#06b6d4);
+}
+
+.btn-3 .btn-icon{
+  background:linear-gradient(135deg,#10b981,#14b8a6);
+}
+
+.btn-content{
+  flex:1;
+}
+
+.btn-content strong{
+  display:block;
+  font-size:18px;
+  margin-bottom:5px;
+}
+
+.btn-content small{
+  color:#cbd5e1;
+}
+
+.arrow{
+  font-size:24px;
+  color:#94a3b8;
+}
+
+/* PRODUK */
+
+.products{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+  gap:25px;
+}
+
+.product{
+  background:rgba(255,255,255,0.06);
+  border-radius:25px;
+  overflow:hidden;
+  border:1px solid rgba(255,255,255,0.08);
+  transition:0.4s;
+}
+
+.product:hover{
+  transform:scale(1.03);
+}
+
+.product img{
+  width:100%;
+  height:220px;
+  object-fit:cover;
+}
+
+.product-content{
+  padding:22px;
+}
+
+.product-content h3{
+  margin-bottom:10px;
+}
+
+.price{
+  font-size:24px;
+  color:#67e8f9;
+  font-weight:700;
+  margin:14px 0;
+}
+
+/* ORDER PANEL */
+
+.order-panel{
+  margin-top:50px;
+  padding:30px;
+  border-radius:25px;
+  background:rgba(255,255,255,0.06);
+  border:1px solid rgba(255,255,255,0.08);
+  max-width:700px;
+  margin-left:auto;
+  margin-right:auto;
+}
+
+.form-group{
+  margin-bottom:18px;
+}
+
+.form-group label{
+  display:block;
+  margin-bottom:8px;
+  font-size:14px;
+}
+
+.form-group input,
+.form-group textarea{
+  width:100%;
+  padding:15px;
+  border:none;
+  outline:none;
+  border-radius:14px;
+  background:#0f172a;
+  color:white;
+}
+
+.submit-btn{
+  width:100%;
+  padding:15px;
+  border:none;
+  border-radius:14px;
+  background:linear-gradient(90deg,#4f46e5,#06b6d4);
+  color:white;
+  font-size:16px;
+  cursor:pointer;
+  transition:0.3s;
+}
+
+.submit-btn:hover{
+  opacity:0.9;
+}
+
+/* FOOTER */
+
+footer{
+  padding:35px;
+  text-align:center;
+  color:#94a3b8;
+  border-top:1px solid rgba(255,255,255,0.08);
+  margin-top:50px;
+}
+
+/* RESPONSIVE */
+
+@media(max-width:768px){
+
+  nav{
+    display:none;
+  }
+
+  .hero h1{
+    font-size:42px;
+  }
+
+  .title h2{
+    font-size:32px;
+  }
+
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="blur"></div>
+<div class="blur blur2"></div>
+
+<header>
+
+  <div class="logo">AI STORE</div>
+
+  <nav>
+    <a href="#fitur">Fitur</a>
+    <a href="#jualan">Jualan</a>
+    <a href="#produk">Produk</a>
+    <a href="#order">Order</a>
+  </nav>
+
+</header>
+
+<!-- HERO -->
+
+<section class="hero">
+
+  <div class="hero-text">
+
+    <div class="tag">
+      ⚡ Website Jualan AI Modern
+    </div>
+
+    <h1>
+      Bangun <span>Bisnis Digital</span><br>
+      Dengan Tampilan Futuristik
+    </h1>
+
+    <p>
+      Website jualan modern dengan sistem AI otomatis,
+      desain premium, mobile friendly, dan tampilan super keren.
+    </p>
+
+    <div class="buttons">
+      <button class="btn btn-primary">Mulai Sekarang</button>
+      <button class="btn btn-secondary">Lihat Demo</button>
+    </div>
+
+  </div>
+
+  <div class="hero-card">
+
+    <div class="ai-box">
+
+      <div class="ai-top">
+
+        <h3>AI Assistant</h3>
+
+        <div class="ai-status">
+          <div class="dot"></div>
+          Online
+        </div>
+
+      </div>
+
+      <div class="ai-chat">
+
+        <div class="chat user">
+          Halo AI, ada promo hari ini?
+        </div>
+
+        <div class="chat ai">
+          Ya! Diskon 50% untuk semua produk premium 🚀
+        </div>
+
+        <div class="chat user">
+          Bisa rekomendasi produk?
+        </div>
+
+        <div class="chat ai">
+          Saya rekomendasikan AI Business Pack untuk meningkatkan penjualan Anda.
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+<!-- FITUR -->
+
+<section class="section" id="fitur">
+
+  <div class="title">
+    <h2>Fitur Modern</h2>
+    <p>Teknologi canggih untuk bisnis digital</p>
+  </div>
+
+  <div class="cards">
+
+    <div class="card">
+      <div class="icon">🤖</div>
+      <h3>AI Otomatis</h3>
+      <p>AI membantu membalas pelanggan secara otomatis dan cepat.</p>
+    </div>
+
+    <div class="card">
+      <div class="icon">⚡</div>
+      <h3>Super Cepat</h3>
+      <p>Website ringan dan responsif di semua perangkat.</p>
+    </div>
+
+    <div class="card">
+      <div class="icon">🛒</div>
+      <h3>Order Instan</h3>
+      <p>Pelanggan bisa order langsung dengan tampilan premium.</p>
+    </div>
+
+    <div class="card">
+      <div class="icon">📱</div>
+      <h3>Mobile Friendly</h3>
+      <p>Tampilan tetap keren di Android, iPhone, tablet, dan laptop.</p>
+    </div>
+
+  </div>
+
+</section>
+
+<!-- MENU JUALAN -->
+
+<section class="section" id="jualan">
+
+  <div class="title">
+    <h2>Menu Jualan</h2>
+    <p>List fitur jualan modern otomatis</p>
+  </div>
+
+  <div class="button-list">
+
+    <a href="#" class="menu-btn btn-1">
+
+      <div class="btn-icon">🛒</div>
+
+      <div class="btn-content">
+        <strong>Order Produk</strong>
+        <small>Pesan produk otomatis modern</small>
+      </div>
+
+      <div class="arrow">›</div>
+
+    </a>
+
+    <a href="#" class="menu-btn btn-2">
+
+      <div class="btn-icon">💳</div>
+
+      <div class="btn-content">
+        <strong>Pembayaran</strong>
+        <small>Pembayaran cepat & aman</small>
+      </div>
+
+      <div class="arrow">›</div>
+
+    </a>
+
+    <a href="#" class="menu-btn btn-3">
+
+      <div class="btn-icon">🤖</div>
+
+      <div class="btn-content">
+        <strong>AI Assistant</strong>
+        <small>Bantuan otomatis AI modern</small>
+      </div>
+
+      <div class="arrow">›</div>
+
+    </a>
+
+  </div>
+
+</section>
+
+<!-- PRODUK -->
+
+<section class="section" id="produk">
+
+  <div class="title">
+    <h2>Produk Trending</h2>
+    <p>Produk digital premium AI</p>
+  </div>
+
+  <div class="products">
+
+    <div class="product">
+
+      <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=1200&auto=format&fit=crop">
+
+      <div class="product-content">
+
+        <h3>AI Business Pack</h3>
+
+        <p>Paket bisnis digital modern dengan AI otomatis.</p>
+
+        <div class="price">Rp299.000</div>
+
+        <button class="btn btn-primary">
+          Beli Sekarang
+        </button>
+
+      </div>
+
+    </div>
+
+    <div class="product">
+
+      <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?q=80&w=1200&auto=format&fit=crop">
+
+      <div class="product-content">
+
+        <h3>Premium Website</h3>
+
+        <p>Website futuristik dengan desain premium elegan.</p>
+
+        <div class="price">Rp499.000</div>
+
+        <button class="btn btn-primary">
+          Beli Sekarang
+        </button>
+
+      </div>
+
+    </div>
+
+    <div class="product">
+
+      <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=1200&auto=format&fit=crop">
+
+      <div class="product-content">
+
+        <h3>AI Marketing</h3>
+
+        <p>Sistem marketing AI otomatis untuk meningkatkan penjualan.</p>
+
+        <div class="price">Rp799.000</div>
+
+        <button class="btn btn-primary">
+          Beli Sekarang
+        </button>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+<!-- ORDER -->
+
+<section class="section" id="order">
+
+  <div class="title">
+    <h2>Order Sekarang</h2>
+    <p>Kirim pesanan otomatis dengan mudah</p>
+  </div>
+
+  <div class="order-panel">
+
+    <div class="form-group">
+      <label>Nama</label>
+      <input type="text" placeholder="Masukkan nama">
+    </div>
+
+    <div class="form-group">
+      <label>Pesanan</label>
+      <textarea rows="5" placeholder="Tulis pesanan"></textarea>
+    </div>
+
+    <button class="submit-btn">
+      Kirim Order
+    </button>
+
+  </div>
+
+</section>
+
+<footer>
+  © 2026 AI STORE • Modern Futuristic Website
+</footer>
+
+</body>
+</html>

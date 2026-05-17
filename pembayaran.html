@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pembayaran - AI Pay</title>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&display=swap');
+
+:root{
+  --primary:#6366f1;
+  --success:#22c55e;
+  --bg:#0a0e27;
+  --card:#1e293b;
+  --text:#f1f5f9;
+  --text-muted:#94a3b8;
+  --border:#334155;
+}
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+body{
+  font-family:'Outfit',sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  min-height:100vh;
+  padding:20px;
+}
+
+.container{
+  max-width:600px;
+  margin:auto;
+}
+
+.header{
+  text-align:center;
+  margin-bottom:30px;
+}
+
+.header h1{
+  font-size:30px;
+  margin-bottom:10px;
+}
+
+.header p{
+  color:var(--text-muted);
+}
+
+.summary-card,
+.payment-details{
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:20px;
+  padding:20px;
+  margin-bottom:20px;
+}
+
+.summary-row{
+  display:flex;
+  justify-content:space-between;
+  margin-bottom:12px;
+}
+
+.total{
+  border-top:1px solid var(--border);
+  padding-top:15px;
+  font-size:22px;
+  font-weight:700;
+  color:var(--primary);
+}
+
+.section-title{
+  font-size:18px;
+  margin-bottom:15px;
+}
+
+.payment-grid{
+  display:grid;
+  gap:12px;
+}
+
+.payment-method{
+  display:flex;
+  align-items:center;
+  gap:15px;
+  background:var(--card);
+  border:2px solid var(--border);
+  padding:18px;
+  border-radius:16px;
+  cursor:pointer;
+  transition:0.3s;
+}
+
+.payment-method:hover{
+  border-color:var(--primary);
+}
+
+.payment-method.active{
+  border-color:var(--primary);
+  background:rgba(99,102,241,0.1);
+}
+
+.payment-icon{
+  width:50px;
+  height:50px;
+  border-radius:12px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:linear-gradient(135deg,#6366f1,#8b5cf6);
+  font-size:24px;
+}
+
+.payment-info{
+  flex:1;
+}
+
+.payment-check{
+  width:24px;
+  height:24px;
+  border:2px solid var(--border);
+  border-radius:50%;
+}
+
+.payment-method.active .payment-check{
+  background:var(--primary);
+  border-color:var(--primary);
+}
+
+.payment-details{
+  display:none;
+}
+
+.payment-details.active{
+  display:block;
+}
+
+.qr-code{
+  width:200px;
+  height:200px;
+  background:white;
+  color:black;
+  margin:auto;
+  border-radius:16px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-weight:bold;
+  margin-bottom:15px;
+}
+
+.account-box{
+  background:#0f172a;
+  padding:15px;
+  border-radius:12px;
+}
+
+.account-row{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:10px;
+}
+
+.copy-btn{
+  background:var(--primary);
+  border:none;
+  color:white;
+  padding:8px 12px;
+  border-radius:8px;
+  cursor:pointer;
+}
+
+.btn-pay{
+  width:100%;
+  padding:16px;
+  border:none;
+  border-radius:16px;
+  background:linear-gradient(135deg,var(--primary),#8b5cf6);
+  color:white;
+  font-size:16px;
+  font-weight:600;
+  cursor:pointer;
+  margin-top:20px;
+}
+
+/* AI CHAT */
+
+.ai-chat{
+  position:fixed;
+  bottom:25px;
+  right:25px;
+}
+
+.ai-toggle{
+  width:60px;
+  height:60px;
+  border:none;
+  border-radius:50%;
+  background:linear-gradient(135deg,#6366f1,#8b5cf6);
+  color:white;
+  font-size:24px;
+  cursor:pointer;
+}
+
+.ai-window{
+  position:absolute;
+  bottom:75px;
+  right:0;
+  width:320px;
+  height:420px;
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:20px;
+  overflow:hidden;
+  display:none;
+  flex-direction:column;
+}
+
+.ai-window.active{
+  display:flex;
+}
+
+.ai-header{
+  padding:16px;
+  border-bottom:1px solid var(--border);
+  font-weight:600;
+}
+
+.ai-messages{
+  flex:1;
+  padding:16px;
+  overflow-y:auto;
+}
+
+.ai-msg{
+  background:#334155;
+  padding:12px;
+  border-radius:12px;
+  margin-bottom:10px;
+  font-size:14px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+  <div class="header">
+    <h1>AI Pay</h1>
+    <p>Pembayaran Aman & Modern</p>
+  </div>
+
+  <div class="summary-card">
+    <div class="summary-row">
+      <span>Produk</span>
+      <span>AI Premium</span>
+    </div>
+
+    <div class="summary-row">
+      <span>Harga</span>
+      <span>Rp 99.000</span>
+    </div>
+
+    <div class="summary-row total">
+      <span>Total</span>
+      <span>Rp 99.000</span>
+    </div>
+  </div>
+
+  <h2 class="section-title">Metode Pembayaran</h2>
+
+  <div class="payment-grid">
+
+    <div class="payment-method active" onclick="selectPayment(this)">
+      <div class="payment-icon">💳</div>
+
+      <div class="payment-info">
+        <strong>DANA</strong>
+        <small>Pembayaran cepat & aman</small>
+      </div>
+
+      <div class="payment-check"></div>
+    </div>
+
+    <div class="payment-method" onclick="selectPayment(this)">
+      <div class="payment-icon">🏦</div>
+
+      <div class="payment-info">
+        <strong>Bank Transfer</strong>
+        <small>BCA, BRI, Mandiri</small>
+      </div>
+
+      <div class="payment-check"></div>
+    </div>
+
+  </div>
+
+  <div class="payment-details active">
+    <div class="qr-code">
+      QR CODE
+    </div>
+
+    <div class="account-box">
+      <div class="account-row">
+        <span>Nomor:</span>
+        <strong>08123456789</strong>
+      </div>
+
+      <button class="copy-btn" onclick="copyNumber()">
+        Copy
+      </button>
+    </div>
+  </div>
+
+  <button class="btn-pay">
+    Bayar Sekarang
+  </button>
+
+</div>
+
+<!-- AI CHAT -->
+<div class="ai-chat">
+
+  <button class="ai-toggle" onclick="toggleChat()">
+    🤖
+  </button>
+
+  <div class="ai-window" id="chatWindow">
+
+    <div class="ai-header">
+      AI Assistant
+    </div>
+
+    <div class="ai-messages">
+      <div class="ai-msg">
+        Halo 👋 Ada yang bisa saya bantu?
+      </div>
+    </div>
+
+  </div>
+
+</div>
+
+<script>
+function selectPayment(el){
+  document.querySelectorAll('.payment-method')
+    .forEach(item => item.classList.remove('active'));
+
+  el.classList.add('active');
+}
+
+function toggleChat(){
+  document.getElementById('chatWindow')
+    .classList.toggle('active');
+}
+
+function copyNumber(){
+  navigator.clipboard.writeText('08123456789');
+  alert('Nomor berhasil disalin!');
+}
+</script>
+
+</body>
+</html>
